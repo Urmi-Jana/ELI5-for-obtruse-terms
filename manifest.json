@@ -1,6 +1,6 @@
 {
-  "name": "GPT-3 Writer",
-  "description": "Write a blog post in the style of your favorite thinker anywhere!",
+  "name": "ELI5",
+  "description": "Explain Like I'm 5: Explains an unknown term in the research paper you're reading, directly from the pdf!",
   "version": "1.0",
   "manifest_version": 3,
   "icons": {
@@ -11,6 +11,8 @@
   },
   "action": {
     "default_popup": "index.html",
-    "default_title": "Generate blog post"
-  }
+    "default_title": "Define unknown terms"
+  },
+  "permissions": ["contextMenus", "tabs", "storage"]
+  
 }
