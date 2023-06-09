@@ -13,6 +13,11 @@
     "default_popup": "index.html",
     "default_title": "Define unknown terms"
   },
+  "background":{
+    "service_worker": "scripts/serviceworker.js"
+  },
+
+
   "permissions": ["contextMenus", "tabs", "storage"]
   
 }
