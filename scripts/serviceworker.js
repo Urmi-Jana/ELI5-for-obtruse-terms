@@ -15,7 +15,7 @@ const getKey = () => {
 //generate output
 const generate = async (prompt) => {
     const key = await getKey(); //get key from storage
-    const url = 'https://api.openai.com/v1/chat/completions';
+    const url = 'https://api.openai.com/v1/completions';
 
     const response = await fetch(url, {
             method: 'POST',
@@ -33,21 +33,22 @@ const generate = async (prompt) => {
     console.log(response);
 
     const output = await response.json();
-    return output.text;
+    return output.choices.pop();
     
 }
 
 //after clicking
 const generateCompletionAction = async (info) => {
     try{
-        const {selectedText} = info;
+        const { selectionText } = info;
+        console.log(info);
         const basePrompt = `
             Act as a teacher and explain this term in extremely simple terms. Use examples and real-world use cases to support the answer.
 
             Term: 
         `;
 
-        const completePrompt = await generate (`${basePrompt}${selectedText}`);
+        const completePrompt = await generate (`${basePrompt}${selectionText}`);
         console.log(completePrompt.text);
     }catch(error){
         console.log(error);
