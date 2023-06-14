@@ -12,6 +12,23 @@ const getKey = () => {
     })
 }
 
+//send message to the UI
+const sendMessage = (content) => {
+    chrome.tabs.query({ active: true,  currentWindow: true }, (tabs) => {
+        const activeTab = tabs[0].id; //take the id of the current active tab
+
+        chrome.tabs.sendMessage(
+            activeTab,
+            {message: 'inject', content},
+            (response) => {
+                if (response.status === 'failed') {
+                    console.log('injection failed.');
+                }
+            }
+        )
+    })
+}
+
 //generate output
 const generate = async (prompt) => {
     const key = await getKey(); //get key from storage
@@ -40,8 +57,11 @@ const generate = async (prompt) => {
 //after clicking
 const generateCompletionAction = async (info) => {
     try{
+
+        //send message when output is being generated after clicking
+        sendMessage("Generating ouput ...");
+
         const { selectionText } = info;
-        console.log(info);
         const basePrompt = `
             Act as a teacher and explain this term in extremely simple terms. Use examples and real-world use cases to support the answer.
 
@@ -50,8 +70,11 @@ const generateCompletionAction = async (info) => {
 
         const completePrompt = await generate (`${basePrompt}${selectionText}`);
         console.log(completePrompt.text);
+        sendMessage(completePrompt.text);
+        
     }catch(error){
         console.log(error);
+        sendMessage(error.toString());
     }
 }
 
