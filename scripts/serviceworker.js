@@ -11,7 +11,6 @@ const getKey = () => {
         })
     })
 }
-
 //send message to the UI
 const sendMessage = (content) => {
     chrome.tabs.query({ active: true,  currentWindow: true }, (tabs) => {
