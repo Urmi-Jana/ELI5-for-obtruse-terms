@@ -17,7 +17,7 @@ const sendMessage = (content) => {
         const activeTab = tabs[0].id; //take the id of the current active tab
 
         chrome.tabs.sendMessage(
-            activeTab,
+            Number(activeTab),
             {message: 'inject', content},
             (response) => {
                 if (response.status === 'failed') {
@@ -46,7 +46,6 @@ const generate = async (prompt) => {
             temperature: 0.7,
         }),
     })
-    console.log(response);
 
     const output = await response.json();
     return output.choices.pop();
@@ -68,7 +67,7 @@ const generateCompletionAction = async (info) => {
         `;
 
         const completePrompt = await generate (`${basePrompt}${selectionText}`);
-        console.log(completePrompt.text);
+        // console.log(completePrompt.text);
         sendMessage(completePrompt.text);
         
     }catch(error){

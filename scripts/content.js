@@ -1,4 +1,4 @@
-//for controlling the UI by listening the messages
+//handles the output
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === 'inject') {
